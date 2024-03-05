@@ -1,3 +1,8 @@
+data "google_compute_image" "debian_image" {
+  family  = "debian-11"
+  project = "debian-cloud"
+}
+
 resource "google_compute_network" "vpc" {
   name                    = "${var.instance_name}-vpc"
   auto_create_subnetworks = false
@@ -20,13 +25,13 @@ resource "google_compute_instance" "vm" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = data.google_compute_image.debian_image.self_link
     }
   }
 
-  #metadata = {
-  #  ssh-keys = "${var.ssh_user}:${file(var.pubkey_file)}"
-  #}
+  metadata = {
+    ssh-keys = "debian:${var.ssh_key}"
+  }
 
   network_interface {
     network    = google_compute_network.vpc.name

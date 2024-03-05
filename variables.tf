@@ -10,6 +10,11 @@ variable "region" {
   default     = "europe-west1"
 }
 
+variable "ssh_key" {
+  type = string
+  description = "SSH key"
+}
+
 variable "instance_type" {
   type = string
   description = "GCP instance type"
