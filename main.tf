@@ -15,6 +15,19 @@ resource "google_compute_subnetwork" "subnet" {
   network       = google_compute_network.vpc.name
 }
 
+resource "google_compute_firewall" "rules" {
+  name        = "${var.instance_name}-fwr"
+  network     = google_compute_network.vpc.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["${var.instance_name}"]
+}
+
 resource "google_compute_instance" "vm" {
   name                      = var.instance_name
   machine_type              = var.instance_type
@@ -39,17 +52,4 @@ resource "google_compute_instance" "vm" {
     access_config {
     }
   }
-}
-
-resource "google_compute_firewall" "rules" {
-  name        = "${var.instance_name}-fwr"
-  network     = google_compute_network.vpc.name
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["${var.instance_name}"]
 }
