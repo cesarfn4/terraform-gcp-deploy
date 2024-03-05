@@ -1,10 +1,10 @@
 output "ssh_access" {
-  value = "ssh debian@${google_compute_instance.vm.network_interface.0.network_ip}"
+  value = "ssh debian@${google_compute_instance.vm.network_interface.0.access_config.0.nat_ip}"
   description = "SSH Access"
 }
 
 output "public_ip" {
-  value = google_compute_instance.vm.network_interface.0.network_ip
+  value = google_compute_instance.vm.network_interface.0.access_config.0.nat_ip
   description = "Virtual Machine Public IP address"
 }
 

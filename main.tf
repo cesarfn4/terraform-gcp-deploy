@@ -43,7 +43,7 @@ resource "google_compute_instance" "vm" {
   }
 
   metadata = {
-    ssh-keys = "debian:${var.ssh_key}"
+    ssh-keys = "hashicorp:${var.ssh_key}"
   }
 
   network_interface {
