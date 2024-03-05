@@ -1,5 +1,5 @@
 output "ssh_access" {
-  value = "ssh hashicorp@${google_compute_instance.vm.network_interface.0.access_config.0.nat_ip}"
+  value = "ssh -i ~/.ssh/hashicorp hashicorp@${google_compute_instance.vm.network_interface.0.access_config.0.nat_ip}"
   description = "SSH Access"
 }
 
